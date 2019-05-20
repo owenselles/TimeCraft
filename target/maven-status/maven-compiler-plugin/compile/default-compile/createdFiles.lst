@@ -1,0 +1,9 @@
+com\owenselles\TimeCraft\Events\OnPlayerJoin.class
+com\owenselles\TimeCraft\Commands\Ranks.class
+com\owenselles\TimeCraft\Events\OnPlayerLeave.class
+com\owenselles\TimeCraft\Commands\ClaimHelp.class
+com\owenselles\TimeCraft\Commands\Discord.class
+com\owenselles\TimeCraft\Events\OnPlayerChat.class
+com\owenselles\TimeCraft\Utils\Color.class
+com\owenselles\TimeCraft\Utils\Logger.class
+com\owenselles\TimeCraft\Main.class
