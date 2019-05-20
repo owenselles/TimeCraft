@@ -12,3 +12,5 @@ commands:
   ranks:
     description: Ranks Command
     aliases: [store, webstore]
+  afk:
+    description: Afk Command
