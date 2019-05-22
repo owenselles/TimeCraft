@@ -13,14 +13,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class OnPlayerChat implements Listener {
-    @EventHandler(priority = EventPriority.MONITOR)
-    public static void onPlayerChat(AsyncPlayerChatEvent event) {
-        for (Player on : Bukkit.getServer().getOnlinePlayers()) {
-            if (event.getMessage().contains(on.getName())) {
-                event.setMessage(event.getMessage().replaceAll(on.getName(), ChatColor.GREEN + on.getName() + ChatColor.RESET));
-                on.playNote(on.getLocation(), Instrument.PIANO, Note.natural(1, Note.Tone.A));
-                on.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GREEN + event.getPlayer().getName() + ChatColor.GOLD + ChatColor.BOLD + " mentioned you in chat!"));
-            }
-        }
+
+  @EventHandler(priority = EventPriority.MONITOR)
+  public static void onPlayerChat(AsyncPlayerChatEvent event) {
+    for (Player on : Bukkit.getServer().getOnlinePlayers()) {
+      if (event.getMessage().contains(on.getName())) {
+        event.setMessage(event.getMessage()
+            .replaceAll(on.getName(), ChatColor.GREEN + on.getName() + ChatColor.RESET));
+        on.playNote(on.getLocation(), Instrument.PIANO, Note.natural(1, Note.Tone.A));
+        on.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(
+            ChatColor.GREEN + event.getPlayer().getName() + ChatColor.GOLD + ChatColor.BOLD
+                + " mentioned you in chat!"));
+      }
     }
+  }
 }
