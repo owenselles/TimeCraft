@@ -12,22 +12,38 @@ public class CommandManager implements CommandExecutor, Listener {
 
     Main main = Main.getPlugin(Main.class);
 
+    private boolean can = false;
+
+    public String afk = "afk";
+    public String discord = "discord";
+    public String claimhelp = "claimhelp";
+    public String ranks = "ranks";
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
 
-        if (cmd.getName().equalsIgnoreCase("afk")){
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.DARK_RED + "Only Players can use this command!");
-            } else {
-                Player pl = (Player) sender;
-                String name = pl.getWorld().getName();
-                boolean canafk = Boolean.valueOf(String.valueOf(main.getConfig().get(name+".afk")));
-                if (canafk){
-                    new Afk().onCommand(sender, cmd, s, args);
+        if (main.commands.contains(cmd.getName())){
+            if (sender instanceof Player){
+                Player player = (Player) sender;
+                String worldname = player.getWorld().getName();
+                can = Boolean.valueOf(String.valueOf(main.getConfig().get(worldname+"."+cmd.getName())));
+                if (!can){
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',String.valueOf(main.getConfig().get("cant-message"))));
+                    return true;
                 }else{
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&',String.valueOf(main.getConfig().get("cant-afk-message"))));
+                    if (cmd.getName().equalsIgnoreCase(afk)){
+                        new Afk().onCommand(sender,cmd,s,args);
+                    }else if (cmd.getName().equalsIgnoreCase(discord)){
+                        new Discord().onCommand(sender,cmd,s,args);
+                    }else if (cmd.getName().equalsIgnoreCase(ranks)){
+                        new Ranks().onCommand(sender,cmd,s,args);
+                    }else if (cmd.getName().equalsIgnoreCase(claimhelp)){
+                        new ClaimHelp().onCommand(sender,cmd,s,args);
+                    }
                 }
-            }
+            }/*else{
+                sender.sendMessage(ChatColor.DARK_RED + "Only Players can use this command!");
+            }*/
         }
         return true;
     }
