@@ -1,12 +1,10 @@
 package com.owenselles.TimeCraft;
 
-import com.owenselles.TimeCraft.Commands.Afk;
 import com.owenselles.TimeCraft.Commands.ClaimHelp;
 import com.owenselles.TimeCraft.Commands.Discord;
 import com.owenselles.TimeCraft.Commands.Ranks;
 import com.owenselles.TimeCraft.Events.OnPlayerJoin;
 import com.owenselles.TimeCraft.Events.OnPlayerLeave;
-import com.owenselles.TimeCraft.Events.OnPlayerMove;
 import com.owenselles.TimeCraft.Utils.Logger;
 import com.owenselles.TimeCraft.Events.OnPlayerChat;
 import org.bukkit.Bukkit;
@@ -22,11 +20,9 @@ public class Main extends JavaPlugin
         Bukkit.getPluginCommand("claimhelp").setExecutor(new ClaimHelp());
         Bukkit.getPluginCommand("discord").setExecutor(new Discord());
         Bukkit.getPluginCommand("ranks").setExecutor(new Ranks());
-        Bukkit.getPluginCommand("afk").setExecutor(new Afk());
         getServer().getPluginManager().registerEvents(new OnPlayerChat(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerLeave(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerJoin(), this);
-        getServer().getPluginManager().registerEvents(new OnPlayerMove(), this);
 
         Logger.log(Level.INFO, "Success. Plugin Enabled!");
     }
