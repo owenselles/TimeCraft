@@ -1,13 +1,12 @@
 package com.owenselles.TimeCraft;
 
-import com.owenselles.TimeCraft.Commands.Afk;
-import com.owenselles.TimeCraft.Commands.ClaimHelp;
-import com.owenselles.TimeCraft.Commands.Discord;
-import com.owenselles.TimeCraft.Commands.Ranks;
+import com.owenselles.TimeCraft.Commands.*;
+import com.owenselles.TimeCraft.Events.OnPlayerChat;
 import com.owenselles.TimeCraft.Events.OnPlayerJoin;
 import com.owenselles.TimeCraft.Events.OnPlayerLeave;
 import com.owenselles.TimeCraft.Utils.Logger;
-import com.owenselles.TimeCraft.Events.OnPlayerChat;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -28,7 +27,7 @@ public class Main extends JavaPlugin
         getCommand("claimhelp").setExecutor(new ClaimHelp());
         getCommand("discord").setExecutor(new Discord());
         getCommand("ranks").setExecutor(new Ranks());
-        getCommand("afk").setExecutor(new Afk());
+        getCommand("afk").setExecutor(new CommandManager());
     }
 
     private void regEvents(){
@@ -40,6 +39,25 @@ public class Main extends JavaPlugin
 
     private void regConfig() {
         getConfig().options().copyDefaults(true);
+        if (!getConfig().contains("cant-afk-message")) {
+            getConfig().set("cant-afk-message", "Unknown command. Type \"/help\" for help");
+        }else{
+            if (getConfig().get("cant-afk-message") == null){
+                getConfig().set("cant-afk-message", "Unknown command. Type \"/help\" for help");
+            }
+        }
+        for (World world : Bukkit.getWorlds()) {
+            String name = world.getName();
+            if (!getConfig().contains(name)) {
+                getConfig().set(name + ".afk", true);
+            }else{
+                if (getConfig().get(name+".afk") == null){
+                    getConfig().set(name+".afk",true);
+                }
+            }
+        }
+        saveConfig();
+        reloadConfig();
     }
 
     @Override
