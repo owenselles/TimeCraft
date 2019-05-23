@@ -1,10 +1,11 @@
 main: com.owenselles.TimeCraft.Main
-name: TimeCraft-Mention
+name: TimeCraft
 version: 1.1
 description: Main
 author: VoxFall#6867
 api-version: 1.13
 commands:
+
   discord:
     description: Discord Command
   claimhelp:
@@ -12,3 +13,5 @@ commands:
   ranks:
     description: Ranks Command
     aliases: [store, webstore]
+  afk:
+    description: (un)afk
