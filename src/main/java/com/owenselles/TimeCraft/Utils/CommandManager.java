@@ -32,7 +32,7 @@ public class CommandManager implements CommandExecutor, Listener {
                 String worldname = player.getWorld().getName();
                 can = Boolean.valueOf(String.valueOf(main.getConfig().get(worldname+"."+cmd.getName())));
                 if (!can){
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',String.valueOf(main.getConfig().get("cant-message"))));
+                    player.sendMessage(Color.add(String.valueOf(main.getConfig().get("cant-message"))));
                     return true;
                 }else{
                     if (cmd.getName().equalsIgnoreCase(afk)){
