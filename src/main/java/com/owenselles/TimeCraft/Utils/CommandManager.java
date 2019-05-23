@@ -34,14 +34,14 @@ public class CommandManager implements CommandExecutor, Listener {
                 if (!can){
                     player.sendMessage(Color.add(String.valueOf(main.getConfig().get("cant-message"))));
                     return true;
-                }else{
+                } else {
                     if (cmd.getName().equalsIgnoreCase(afk)){
                         new Afk().onCommand(sender,cmd,s,args);
-                    }else if (cmd.getName().equalsIgnoreCase(discord)){
+                    } else if (cmd.getName().equalsIgnoreCase(discord)){
                         new Discord().onCommand(sender,cmd,s,args);
-                    }else if (cmd.getName().equalsIgnoreCase(ranks)){
+                    } else if (cmd.getName().equalsIgnoreCase(ranks)){
                         new Ranks().onCommand(sender,cmd,s,args);
-                    }else if (cmd.getName().equalsIgnoreCase(claimhelp)){
+                    } else if (cmd.getName().equalsIgnoreCase(claimhelp)){
                         new ClaimHelp().onCommand(sender,cmd,s,args);
                     }
                 }

@@ -59,7 +59,7 @@ public class Main extends JavaPlugin
         getConfig().options().copyDefaults(true);
         if (!getConfig().contains("cant-message")) {
             getConfig().set("cant-message", "Unknown command. Type \"/help\" for help");
-        }else{
+        } else {
             if (getConfig().get("cant-message") == null){
                 getConfig().set("cant-message", "Unknown command. Type \"/help\" for help");
             }
