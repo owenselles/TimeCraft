@@ -23,12 +23,16 @@ public class Afk implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player player = (Player) sender;
-        if (isAFK.contains(player.getName())) {
-            isAFK.remove(player.getName());
-            Bukkit.broadcastMessage(ChatColor.GRAY + player.getName() + " is no longer AFK");
-        } else {
-            isAFK.add(player.getName());
-            Bukkit.broadcastMessage(ChatColor.GRAY + player.getName() + " is now AFK");
+        if (!player.hasPermission("essentials.afk")) {
+            if (isAFK.contains(player.getName())) {
+                isAFK.remove(player.getName());
+                Bukkit.broadcastMessage(ChatColor.GRAY + player.getName() + " is no longer AFK");
+            } else {
+                isAFK.add(player.getName());
+                Bukkit.broadcastMessage(ChatColor.GRAY + player.getName() + " is now AFK");
+            }
+        }else{
+            Bukkit.getServer().dispatchCommand(player,"essentials:afk");
         }
         return true;
     }
