@@ -24,7 +24,7 @@
         <artifactId>maven-jar-plugin</artifactId>
         <version>2.5</version>
         <configuration>
-          <outputDirectory>C:\Users\owens\Documents\development\1.13.2\plugins</outputDirectory>
+          <outputDirectory>D:\TimeCraft Server Test\plugins</outputDirectory>
         </configuration>
       </plugin>
     </plugins>

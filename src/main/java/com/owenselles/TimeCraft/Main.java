@@ -64,6 +64,35 @@ public class Main extends JavaPlugin
                 getConfig().set("cant-message", "Unknown command. Type \"/help\" for help");
             }
         }
+        if (!getConfig().contains("join-message")){
+            getConfig().set("join-message","&7[&a+&7] <player>");
+        } else {
+            if (getConfig().get("join-message") == null){
+                getConfig().set("join-message","&7[&a+&7] <player>");
+            }
+        }
+        if (!getConfig().contains("show-join-message")){
+            getConfig().set("show-join-message",true);
+        } else {
+            if (getConfig().get("show-join-message") == null){
+                getConfig().set("show-join-message",true);
+            }
+        }
+        if (!getConfig().contains("leave-message")){
+            getConfig().set("leave-message","&7[&c-&7] <player>");
+        } else {
+            if (getConfig().get("leave-message") == null){
+                getConfig().set("leave-message","&7[&c-&7] <player>");
+            }
+        }
+        if (!getConfig().contains("show-leave-message")){
+            getConfig().set("show-leave=-message",true);
+        } else {
+            if (getConfig().get("show-leave-message") == null){
+                getConfig().set("show-leave-message",true);
+            }
+        }
+
         for (World world : Bukkit.getWorlds()) {
             String name = world.getName();
             for (String command : commands) {
