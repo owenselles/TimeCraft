@@ -2,21 +2,27 @@ package com.owenselles.TimeCraft.Events;
 
 import com.owenselles.TimeCraft.Main;
 import com.owenselles.TimeCraft.Utils.ReflectionUtil;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Instrument;
+import org.bukkit.Material;
+import org.bukkit.Note;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -40,28 +46,11 @@ public class OnPlayerChat implements Listener {
             }
         }
 
-        if (message.contains("<item>")){
+        if (ChatColor.stripColor(message).contains("<item>")){
             if (player.getItemInHand().getType() != Material.AIR) {
-                ItemStack item = player.getItemInHand();
+                final ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 
-                Class<?> craftItemStackClazz = ReflectionUtil.getOBCClass("inventory.CraftItemStack");
-                Method asNMSCopyMethod = ReflectionUtil.getMethod(craftItemStackClazz, "asNMSCopy", ItemStack.class);
-                assert asNMSCopyMethod != null;
-                Object nmsItemStackObj = asNMSCopyMethod.invoke(null, item);
-
-                Class<?> nmsItemStackClazz = ReflectionUtil.getNMSClass("ItemStack");
-                Class<?> nbtTagCompoundClazz = ReflectionUtil.getNMSClass("NBTTagCompound");
-                Method saveNmsItemStackMethod = ReflectionUtil.getMethod(nmsItemStackClazz, "save", nbtTagCompoundClazz);
-
-                Object nmsNbtTagCompoundObj;
-                Object itemAsJsonObject;
-                nmsNbtTagCompoundObj = nbtTagCompoundClazz.newInstance();
-                assert saveNmsItemStackMethod != null;
-                itemAsJsonObject = saveNmsItemStackMethod.invoke(nmsItemStackObj, nmsNbtTagCompoundObj);
-
-                String json = itemAsJsonObject.toString(); // reflection object
-
-                event.setMessage(event.getMessage().replaceAll("<item>","§7"+item.getType().name()+"§r"));
+                event.setMessage(event.getMessage().replace("<item>","§7"+item.getType().name()+"§r"));
                 this.sendItemTooltipMessage("§7"+player.getDisplayName()+"§a tagged an item:§r ", item, event.getRecipients());
 
             }
